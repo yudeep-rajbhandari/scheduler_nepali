@@ -14,62 +14,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/list1"
-        android:layout_marginTop="23dp"
-        android:layout_below="@+id/textView1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="Date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="11dp"
-        android:layout_marginStart="11dp" />
-
-    <TextView
-        android:text="Person"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView1"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/textView"
-        android:layout_toEndOf="@+id/textView"
-        android:layout_marginLeft="58dp"
-        android:layout_marginStart="58dp" />
-
-    <TextView
-        android:text="Place"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2"
-        android:layout_marginLeft="64dp"
-        android:layout_marginStart="64dp"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/textView1"
-        android:layout_toEndOf="@+id/textView1" />
-
-    <TextView
-        android:text="Task"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView3"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="26dp"
-        android:layout_marginEnd="26dp" />
+        android:layout_below="@+id/materialDatePickerButton"
+        
+        />
 
     <Button
-        android:text="@string/pick_date_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/materialDatePickerButton"
-        android:layout_alignBaseline="@+id/textView"
-        android:layout_alignBottom="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="@string/pick_date_button"
+        android:layout_weight="1"
+        android:theme="@style/MyButton"
+        android:drawableRight="@drawable/calender1"
+        android:drawablePadding="20dp"
+
+        />
+
 </RelativeLayout>

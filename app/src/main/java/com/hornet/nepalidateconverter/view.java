@@ -1,7 +1,9 @@
 package com.hornet.nepalidateconverter;
 
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -31,7 +33,8 @@ public class view extends AppCompatActivity implements View.OnClickListener, Dat
         datePicker = (Button) findViewById(R.id.materialDatePickerButton);
         datePicker.setOnClickListener(this);
 
-
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -79,5 +82,15 @@ public class view extends AppCompatActivity implements View.OnClickListener, Dat
             notesAdapter.add(getnotes);
         }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id==android.R.id.home){
+            NavUtils.navigateUpFromSameTask(this);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
