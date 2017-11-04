@@ -13,9 +13,11 @@ import android.widget.Toast;
 
 import com.hornet.dateconverter.DateConverter;
 import com.hornet.dateconverter.DatePicker.DatePickerDialog;
+import com.hornet.dateconverter.Model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class view extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
     ListView listView;
@@ -32,6 +34,36 @@ public class view extends AppCompatActivity implements View.OnClickListener, Dat
         listView = (ListView) findViewById(R.id.list1);
         datePicker = (Button) findViewById(R.id.materialDatePickerButton);
         datePicker.setOnClickListener(this);
+        DateConverter dc=new DateConverter();
+
+        int currentyear=Calendar.getInstance().get(Calendar.YEAR);
+        int currentmonth=Calendar.getInstance().get(Calendar.MONTH);
+        int currentday=Calendar.getInstance().get(Calendar.DATE);
+
+        Model outputOfConversion=dc.getNepaliDate(currentyear,currentmonth,currentday);
+
+        int year=outputOfConversion.getYear();
+        int month=outputOfConversion.getMonth()+ 1 ;
+        int day=outputOfConversion.getDay();
+        String nepalimonth=getResources().getString( DateConverter.getNepaliMonth(month));
+        String date2 =  day + " " + getResources().getString( DateConverter.getNepaliMonth(month)) + " " + year;
+
+        System.out.println(date2);
+        notesAdapter = new NotesAdapter(view.this, R.layout.activity_view);
+        listView.setAdapter(notesAdapter);
+        //String reqsubjectcode=spinner.getSelectedItem().toString();
+        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+        ArrayList<DatabaseHelper.Notes> notelist = db.getNotes(date2);
+
+        for (DatabaseHelper.Notes notes : notelist) {
+
+            getnotes = new notesgetter(notes.date, notes.Person, notes.Place, notes.Task);
+
+            notesAdapter.add(getnotes);
+        }
+
+
+
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
