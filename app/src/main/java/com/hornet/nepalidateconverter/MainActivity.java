@@ -3,7 +3,9 @@ package com.hornet.nepalidateconverter;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.Button;
@@ -89,6 +91,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
 //        modeCustomAccentDate = (CheckBox) findViewById(R.id.mode_custom_accent_date);
@@ -293,4 +298,15 @@ public void viewdata(){
         outputTimePicker.setText(time);
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id==android.R.id.home){
+            NavUtils.navigateUpFromSameTask(this);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }
