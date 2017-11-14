@@ -7,8 +7,9 @@
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
-            android:label="Create Events">
+        <activity
+            android:name=".view"
+            android:label="Schedule">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -16,10 +17,28 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view"
-            android:label="Schedule">
+        <activity
+            android:name=".MainActivity"
+            android:label="Create Events">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
 
-            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity"/>
+        <receiver android:name="layout.NewAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/new_app_widget_info" />
+        </receiver>
+
+        <activity android:name="layout.NewAppWidgetConfigureActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
         </activity>
     </application>
 

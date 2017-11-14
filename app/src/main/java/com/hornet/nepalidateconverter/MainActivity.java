@@ -24,6 +24,8 @@ import com.hornet.dateconverter.Utils;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import static com.hornet.nepalidateconverter.R.id.editText2;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
 
     EditText year, month, day;
@@ -61,8 +63,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         save=(Button)findViewById(R.id.save);
         listView=(ListView)findViewById(R.id.list1);
         Person=(EditText)findViewById(R.id.editText);
-        Place=(EditText)findViewById(R.id.editText2);
+        Place=(EditText)findViewById(editText2);
         Task=(EditText)findViewById(R.id.editText3);
+
 
         //listView.setAdapter();
 //        adToBs.setOnClickListener(this);
@@ -183,16 +186,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 System.out.println(date);
                 System.out.println(time);
 
-                boolean isInserted =  mydb.insertData(date,Person.getText().toString(),Place.getText().toString(),Task.getText().toString());
+        boolean isInserted =  mydb.insertData(date,Person.getText().toString(),Place.getText().toString(),Task.getText().toString());
 
-                if(isInserted=true){
+        if(isInserted=true){
 
-                    Toast.makeText(MainActivity.this,"data inserted successfully",Toast.LENGTH_LONG).show();
-                }
-                else{
-                    Toast.makeText(MainActivity.this,"failed to insert",Toast.LENGTH_LONG).show();
-                }
-            }
+            Toast.makeText(MainActivity.this,"data inserted successfully",Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(MainActivity.this,"failed to insert",Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+
+
 
 public void viewdata(){
 
