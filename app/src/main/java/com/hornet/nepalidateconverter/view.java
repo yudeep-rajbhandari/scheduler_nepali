@@ -1,6 +1,8 @@
 package com.hornet.nepalidateconverter;
 
+import android.content.DialogInterface;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -21,10 +23,17 @@ import java.util.Date;
 
 public class view extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
     ListView listView;
-    NotesAdapter notesAdapter;
+   NotesAdapter notesAdapter;
     notesgetter getnotes;
     Button datePicker;
-    String date1,send_date;
+    String date1;
+    String send_date;
+    ArrayList<DatabaseHelper.Notes> notelist=new ArrayList<>();
+
+
+
+
+
 
 
     @Override
@@ -35,6 +44,8 @@ public class view extends AppCompatActivity implements View.OnClickListener, Dat
         datePicker = (Button) findViewById(R.id.materialDatePickerButton);
         datePicker.setOnClickListener(this);
         DateConverter dc=new DateConverter();
+
+
 
         int currentyear=Calendar.getInstance().get(Calendar.YEAR);
         int currentmonth=Calendar.getInstance().get(Calendar.MONTH);
@@ -51,15 +62,70 @@ public class view extends AppCompatActivity implements View.OnClickListener, Dat
         System.out.println(date2);
         notesAdapter = new NotesAdapter(view.this, R.layout.activity_view);
         listView.setAdapter(notesAdapter);
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                //Toast.makeText(view.this,"want to delete",Toast.LENGTH_LONG).show();
+                System.out.println("<<<<<<<<<<<<<<<<<<,");
+                AlertDialog.Builder adb=new AlertDialog.Builder(view.this);
+                adb.setTitle("Delete?");
+                adb.setMessage("Are you sure you want to delete " + i);
+                //view.getId();
+                final int positionToRemove = i;
+                adb.setNegativeButton("Cancel", null);
+                adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //System.out.println(i);
+                        System.out.println(notelist);
+                        notelist.remove(positionToRemove);
+//                        notesAdapter.add(notelist);
+//                        listView.setAdapter(notesAdapter);
+//                        listView.refreshDrawableState();
+//                        System.out.println(notelist);
+                        //notesAdapter.remove(notelist.get(i));
+                        //listView.setAdapter(notesAdapter);
+                        notesAdapter.notifyDataSetChanged();
+                        notesgetter notes=(notesgetter)listView.getItemAtPosition(positionToRemove);
+                        System.out.println(notes.getID());
+
+                        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+                        boolean isDeleted =  db.removeData(notes.getID());
+
+                        if(isDeleted=true){
+
+                            Toast.makeText(view.this,"data deleted successfully",Toast.LENGTH_LONG).show();
+//
+
+
+                            }
+
+
+
+
+                        else{
+                            Toast.makeText(view.this,"failed to delete",Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }});
+                adb.show();
+
+
+                return false;
+            }
+        });
         //String reqsubjectcode=spinner.getSelectedItem().toString();
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
-        ArrayList<DatabaseHelper.Notes> notelist = db.getNotes(date2);
+        notelist = db.getNotes(date2);
 
         for (DatabaseHelper.Notes notes : notelist) {
 
-            getnotes = new notesgetter(notes.date, notes.Person, notes.Place, notes.Task);
+
+            getnotes = new notesgetter(notes.ID,notes.date, notes.Person, notes.Place, notes.Task);
 
             notesAdapter.add(getnotes);
+
         }
 
 
@@ -98,18 +164,19 @@ public class view extends AppCompatActivity implements View.OnClickListener, Dat
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         date1 =  dayOfMonth + " " + getResources().getString( DateConverter.getNepaliMonth(monthOfYear)) + " " + year;
-        send_date=date1.toString();
+        final String send_date=date1.toString();
         //outputDatePicker.setText(date);
         Toast.makeText(view.this,send_date,Toast.LENGTH_LONG).show();
-        notesAdapter = new NotesAdapter(view.this, R.layout.activity_view);
-        listView.setAdapter(notesAdapter);
+//        notesAdapter = new NotesAdapter(view.this, R.layout.activity_view);
+//        listView.setAdapter(notesAdapter);
         //String reqsubjectcode=spinner.getSelectedItem().toString();
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
-        ArrayList<DatabaseHelper.Notes> notelist = db.getNotes(send_date);
+
+        notelist = db.getNotes(send_date);
 
         for (DatabaseHelper.Notes notes : notelist) {
 
-            getnotes = new notesgetter(notes.date, notes.Person, notes.Place, notes.Task);
+            getnotes = new notesgetter(notes.ID,notes.date, notes.Person, notes.Place, notes.Task);
 
             notesAdapter.add(getnotes);
         }
