@@ -16,17 +16,21 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME="scheduler.db";
     public static final String TABLE_NAME="notesgetter";
+    public static final String COL_0="ID";
     public static final String COL_1="date";
     public static final String COL_2="Person";
     public static final String COL_3="Place";
     public static final String COL_4="Task";
+
 //    public static final String COL_5="Phone";
 //    public static final String COL_6="Password";
 //    public static final String COL_7="Email";
 public class Notes{
-    String date,Person,Task,Place;
-    public  Notes(String date,String Person, String Place, String Task
+    Integer ID;
+            String date,Person,Task,Place;
+    public  Notes(Integer ID,String date,String Person, String Place, String Task
     ){
+        this.ID=ID;
         this.date=date;
         this.Person=Person;
         this.Place=Place;
@@ -52,7 +56,7 @@ public class Notes{
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table " +TABLE_NAME+ " (date TEXT,Person TEXT,Place TEXT,Task Text)");
+        sqLiteDatabase.execSQL("create table " +TABLE_NAME+ " (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,date TEXT,Person TEXT,Place TEXT,Task Text)");
 
     }
 
@@ -90,6 +94,7 @@ public class Notes{
         SQLiteDatabase sqLiteDatabase=this.getWritableDatabase();
 
         ContentValues contentValues=new ContentValues();
+
         contentValues.put(COL_1,date);
         contentValues.put(COL_2,Person);
         contentValues.put(COL_3,Place);
@@ -104,8 +109,26 @@ public class Notes{
             return true;
     }
 
+    public boolean removeData(Integer ID){
+        System.out.println("<chiryo chiryo");
+        SQLiteDatabase sqLiteDatabase=this.getWritableDatabase();
 
-//    public List<String> getAllLabels(){
+        ContentValues contentValues=new ContentValues();
+
+//        String Query ="DELETE FROM " + TABLE_NAME + " WHERE ID = " + ID  ; ;
+//        System.out.println(Query);
+        //Cursor cursor=database.rawQuery(Query,null);
+
+        long result=sqLiteDatabase.delete(TABLE_NAME,ID +"="+ID,null);
+
+        if(result==-1){
+            return false;
+        }
+        else
+            return true;
+    }
+
+    //    public List<String> getAllLabels(){
 //        List<String> list = new ArrayList<String>();
 //        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 //
@@ -138,10 +161,11 @@ public class Notes{
         Cursor cursor=database.rawQuery(Query,null);
         while(cursor.moveToNext()){
             Noteslist.add(
-                    new Notes(cursor.getString(0),
+                    new Notes(cursor.getInt(0),
                             cursor.getString(1),
                             cursor.getString(2),
-                            cursor.getString(3)
+                            cursor.getString(3),
+                            cursor.getString(4)
 
                     )
             );

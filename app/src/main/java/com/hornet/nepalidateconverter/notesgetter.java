@@ -5,9 +5,10 @@ package com.hornet.nepalidateconverter;
  */
 
 public class notesgetter {
-    private String date,Person,Place,Task;
+    private Integer ID;String date,Person,Place,Task;
 
-    public notesgetter(String date, String person, String place, String task) {
+    public notesgetter(Integer ID,String date, String person, String place, String task) {
+            this.ID=ID;
         this.date = date;
         Person = person;
         Place = place;
@@ -17,6 +18,7 @@ public class notesgetter {
     public String getDate() {
         return date;
     }
+
 
     public void setDate(String date) {
         this.date = date;
@@ -44,5 +46,13 @@ public class notesgetter {
 
     public void setTask(String task) {
         Task = task;
+    }
+
+    public Integer getID() {
+        return ID;
+    }
+
+    public void setID(Integer ID) {
+        this.ID = ID;
     }
 }
