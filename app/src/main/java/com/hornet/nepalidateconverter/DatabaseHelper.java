@@ -5,7 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +73,7 @@ public class Notes{
 
     }
 
+
 //    public String searchpass(String username){
 //        SQLiteDatabase sqLiteDatabase =this.getReadableDatabase();
 //        String query="Select Name,Password from " +TABLE_NAME;
@@ -129,6 +135,32 @@ public class Notes{
             return true;
     }
 
+//    public boolean export(){
+//
+//        final String inFileName = "/data/data/<your.app.package>/databases/foo.db";
+//        File dbFile = new File(inFileName);
+//        FileInputStream fis = new FileInputStream(dbFile);
+//
+//        String outFileName = Environment.getExternalStorageDirectory()+"/database_copy.db";
+//
+//        // Open the empty db as the output stream
+//        OutputStream output = new FileOutputStream(outFileName);
+//
+//        // Transfer bytes from the inputfile to the outputfile
+//        byte[] buffer = new byte[1024];
+//        int length;
+//        while ((length = fis.read(buffer))>0){
+//            output.write(buffer, 0, length);
+//        }
+//
+//        // Close the streams
+//        output.flush();
+//        output.close();
+//        fis.close();
+//
+//        return true;
+//
+//    }
     //    public List<String> getAllLabels(){
 //        List<String> list = new ArrayList<String>();
 //        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
