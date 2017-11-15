@@ -91,6 +91,7 @@ public class Notes{
 
    public boolean insertData(String date, String Person, String Place, String Task){
        System.out.println("<chiryo chiryo");
+
         SQLiteDatabase sqLiteDatabase=this.getWritableDatabase();
 
         ContentValues contentValues=new ContentValues();
@@ -119,7 +120,7 @@ public class Notes{
 //        System.out.println(Query);
         //Cursor cursor=database.rawQuery(Query,null);
 
-        long result=sqLiteDatabase.delete(TABLE_NAME,COL_0 + "=" +ID,null);
+        long result=sqLiteDatabase.delete(TABLE_NAME,COL_0 +"="+ID,null);
 
         if(result==-1){
             return false;
@@ -155,6 +156,8 @@ public class Notes{
 //    }
     public ArrayList<Notes> getNotes(String getday){
         ArrayList<Notes> Noteslist=new ArrayList<>();
+        Noteslist.clear();
+
         SQLiteDatabase database=this.getReadableDatabase();
         String Query ="SELECT * FROM "+TABLE_NAME+" WHERE date ='"+getday+"'" ; ;
         System.out.println(Query);
