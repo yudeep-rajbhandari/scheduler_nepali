@@ -1,9 +1,11 @@
 package com.hornet.nepalidateconverter;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -50,17 +52,72 @@ public class view extends AppCompatActivity implements View.OnClickListener, Dat
         int day=outputOfConversion.getDay();
         String nepalimonth=getResources().getString( DateConverter.getNepaliMonth(month));
         String date2 =  day + " " + getResources().getString( DateConverter.getNepaliMonth(month)) + " " + year;
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Intent intent= new Intent(view.this,MainActivity.class);
+//                startActivity(intent);
+////                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+////                        .setAction("Action", null).show();
+//            }
+//        });
 
         System.out.println(date2);
         notesAdapter = new NotesAdapter(view.this, R.layout.activity_view);
         listView.setAdapter(notesAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                System.out.println("<<<<<<<<<<<<<<<<<<");
+                System.out.println(i);
+                Toast.makeText(getApplicationContext(),"hello",Toast.LENGTH_LONG).show();
+            }
+        });
+//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                System.out.println("<<<<<<<<<<<<<<<< cmon" +
+//                        "" +
+//                        "");
+//                final notesgetter item=(notesgetter) listView.getItemAtPosition(i);
+//                AlertDialog.Builder adb=new AlertDialog.Builder(view.this);
+//                adb.setTitle("Delete?");
+//                adb.setMessage("Are you sure you want to delete " + i);
+//                final int positionToRemove = i;
+//                adb.setNegativeButton("Cancel", null);
+//                adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+//                        boolean isDeleted =  db.removeData(item.getID());
+//
+//                        if(isDeleted=true){
+//
+//                            Toast.makeText(view.this,"data inserted successfully",Toast.LENGTH_LONG).show();
+//                            Intent intent = getIntent();
+//                            finish();
+//                            startActivity(intent);
+//                        }
+//                        else{
+//                            Toast.makeText(view.this,"failed to insert",Toast.LENGTH_LONG).show();
+//                        }
+//
+//
+//                    }});
+//                adb.show();
+//
+//                return false;
+//            }
+//        });
         //String reqsubjectcode=spinner.getSelectedItem().toString();
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
         ArrayList<DatabaseHelper.Notes> notelist = db.getNotes(date2);
 
         for (DatabaseHelper.Notes notes : notelist) {
 
-            getnotes = new notesgetter(notes.date, notes.Person, notes.Place, notes.Task);
+            getnotes = new notesgetter(notes.ID,notes.date, notes.Person, notes.Place, notes.Task);
 
             notesAdapter.add(getnotes);
         }
@@ -69,17 +126,7 @@ public class view extends AppCompatActivity implements View.OnClickListener, Dat
 
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                Intent intent= new Intent(view.this,MainActivity.class);
-                startActivity(intent);
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-            }
-        });
 
     }
 
@@ -122,7 +169,7 @@ public class view extends AppCompatActivity implements View.OnClickListener, Dat
 
         for (DatabaseHelper.Notes notes : notelist) {
 
-            getnotes = new notesgetter(notes.date, notes.Person, notes.Place, notes.Task);
+            getnotes = new notesgetter(notes.ID,notes.date, notes.Person, notes.Place, notes.Task);
 
             notesAdapter.add(getnotes);
         }

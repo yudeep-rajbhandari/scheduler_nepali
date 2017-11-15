@@ -189,13 +189,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<,");
                 System.out.println(date);
-                System.out.println(time);
+        //System.out.println(time);
 
         boolean isInserted =  mydb.insertData(date,Person.getText().toString(),Place.getText().toString(),Task.getText().toString());
 
         if(isInserted=true){
 
             Toast.makeText(MainActivity.this,"data inserted successfully",Toast.LENGTH_LONG).show();
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
         }
         else{
             Toast.makeText(MainActivity.this,"failed to insert",Toast.LENGTH_LONG).show();

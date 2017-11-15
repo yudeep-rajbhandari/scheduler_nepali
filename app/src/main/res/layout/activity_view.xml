@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,50 +8,37 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#dbdbdb"
-    tools:context="com.hornet.nepalidateconverter.view"
-    >
+    tools:context="com.hornet.nepalidateconverter.view">
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/list1"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="23dp"
+
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/materialDatePickerButton"
-        android:padding="5dp"
-        android:clickable="true"
-        android:divider="@null"
-        android:dividerHeight="10dp"
-        />
+        android:layout_alignParentStart="true" />
 
-    <Button
-        android:id="@+id/materialDatePickerButton"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:text="@string/pick_date_button"
-        android:layout_weight="1"
-        android:theme="@style/MyButton"
-        android:drawableRight="@drawable/calender1"
-        android:drawablePadding="20dp"
-
-        />
-
-
-    <android.support.design.widget.FloatingActionButton
+    <TextView
+        android:text="Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_add"
-        android:id="@+id/fab"
-        app:layout_anchorGravity="bottom|right|end"
-        app:fabSize="normal"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        />
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp" />
 
+
+
+    <Button
+        android:text="@string/pick_date_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/materialDatePickerButton"
+        android:layout_alignBaseline="@+id/textView"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
